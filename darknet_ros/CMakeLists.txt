@@ -11,13 +11,13 @@ set(CUDA_ENABLE ON)
 set(CUDNN_ENABLE ON) #  set(CUDNN_ENABLE ON)
 set(FP16_ENABLE ON)
 
-set(DOWNLOAD_YOLOV2_TINY OFF)
-set(DOWNLOAD_YOLOV3 OFF)
-set(DOWNLOAD_YOLOV4 OFF)
+set(DOWNLOAD_YOLOV2_TINY ON)
+set(DOWNLOAD_YOLOV3 ON)
+set(DOWNLOAD_YOLOV4 ON)
 set(DOWNLOAD_YOLOV4_CSP ON)
 set(DOWNLOAD_YOLOV4_TINY ON)
 set(DOWNLOAD_YOLOV4_MISH OFF)
-set(DOWNLOAD_YOLOV7_TINY ON)
+set(DOWNLOAD_YOLOV7_TINY OFF)
 
 # Jetson AGX Xavier & TITAN V is under version of Turing. So, please set manually.
 # Turing or Ampere GPUs, FP16 is automatically enabled.
@@ -26,9 +26,11 @@ set(DOWNLOAD_YOLOV7_TINY ON)
 
 
 # Define path of darknet folder here. ===========================================
-find_path(DARKNET_PATH
-  NAMES "README.md"
-  HINTS "${CMAKE_CURRENT_SOURCE_DIR}/../darknet/")
+#find_path(DARKNET_PATH
+#  NAMES "README.md"
+#  HINTS "${CMAKE_CURRENT_SOURCE_DIR}/../darknet/")
+
+set(DARKNET_PATH "../darknet")
 message(STATUS "Darknet path dir = ${DARKNET_PATH}")
 add_definitions(-DDARKNET_FILE_PATH="${DARKNET_PATH}")
 
@@ -208,7 +210,8 @@ if (CUDA_FOUND)
   )
 
   cuda_add_library(${PROJECT_NAME}_lib
-    ${PROJECT_LIB_FILES} ${DARKNET_CORE_FILES}
+    ${PROJECT_LIB_FILES} 
+    ${DARKNET_CORE_FILES}
     ${DARKNET_CUDA_FILES}
   )
   
