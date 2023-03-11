@@ -20,6 +20,8 @@
   <depend>sensor_msgs</depend>
   <depend>darknet_ros_msgs</depend>
   <depend>ament_index_cpp</depend>
+  <depend>brain_box_msgs</depend>
+  <depend>am_utils</depend>
 
   <test_depend>ament_lint_common</test_depend>
   <test_depend>ament_lint_auto</test_depend>

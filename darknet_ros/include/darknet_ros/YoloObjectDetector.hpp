@@ -35,11 +35,13 @@
 #include <opencv2/objdetect/objdetect.hpp>
 #include <cv_bridge/cv_bridge.h>
 
-// darknet_ros_msgs
-#include "darknet_ros_msgs/msg/bounding_boxes.hpp"
-#include "darknet_ros_msgs/msg/bounding_box.hpp"
-#include "darknet_ros_msgs/msg/object_count.hpp"
-#include "darknet_ros_msgs/action/check_for_objects.hpp"
+// brain_box_msgs
+#include <brain_box_msgs/msg/bounding_boxes.hpp>
+#include <brain_box_msgs/msg/bounding_box.hpp>
+#include <brain_box_msgs/msg/object_count.hpp>
+#include <brain_box_msgs/action/check_for_objects.hpp>
+
+#include <am_utils/am_ros2_utility.h>
 
 // Darknet.
 #ifdef GPU
@@ -92,7 +94,7 @@ typedef struct {
   std_msgs::msg::Header header;
 } CvMatWithHeader_;
 
-class YoloObjectDetector : public rclcpp::Node
+class YoloObjectDetector
 {
  public:
   /*!
@@ -125,7 +127,7 @@ class YoloObjectDetector : public rclcpp::Node
 
 
   //! Typedefs.
-  using CheckForObjectsAction = darknet_ros_msgs::action::CheckForObjects;
+  using CheckForObjectsAction = brain_box_msgs::action::CheckForObjects;
   using GoalHandleCheckForObjectsAction = rclcpp_action::ServerGoalHandle<CheckForObjectsAction>;
 
   /*!
@@ -170,21 +172,21 @@ class YoloObjectDetector : public rclcpp::Node
   std::shared_ptr<GoalHandleCheckForObjectsAction> goal_handle_;
 
   //! Advertise and subscribe to image topics.
-  std::shared_ptr<image_transport::ImageTransport> it_;
+  image_transport::ImageTransport it_;
 
   //! ROS subscriber and publisher.
   image_transport::Subscriber imageSubscriber_;
-  rclcpp::Publisher<darknet_ros_msgs::msg::ObjectCount>::SharedPtr objectPublisher_;
-  rclcpp::Publisher<darknet_ros_msgs::msg::BoundingBoxes>::SharedPtr boundingBoxesPublisher_;
+  rclcpp::Publisher<brain_box_msgs::msg::ObjectCount>::SharedPtr objectPublisher_;
+  rclcpp::Publisher<brain_box_msgs::msg::BoundingBoxes>::SharedPtr boundingBoxesPublisher_;
 
   //! Detected objects.
   std::vector<std::vector<RosBox_> > rosBoxes_;
   std::vector<int> rosBoxCounter_;
-  darknet_ros_msgs::msg::BoundingBoxes boundingBoxesResults_;
+  brain_box_msgs::msg::BoundingBoxes boundingBoxesResults_;
 
   //! Camera related parameters.
-  int frameWidth_;
-  int frameHeight_;
+  int frameWidth_ {640};
+  int frameHeight_ {480};
 
   //! Publisher of the bounding box image.
   rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr detectionImagePublisher_;
@@ -197,7 +199,7 @@ class YoloObjectDetector : public rclcpp::Node
   image **demoAlphabet_;
   int demoClasses_;
 
-  std::string windowName_;
+  std::string windowName_ {"darknet_ros"};
 
   network *net_;
   std_msgs::msg::Header headerBuff_[3];
@@ -227,9 +229,9 @@ class YoloObjectDetector : public rclcpp::Node
   double demoTime_;
 
   RosBox_ *roiBoxes_;
-  bool viewImage_;
-  bool enableConsoleOutput_;
-  int waitKeyDelay_;
+  bool viewImage_ {false};
+  bool enableConsoleOutput_ {false};
+  int waitKeyDelay_ {3};
   int fullScreen_;
   char *demoPrefix_;
 

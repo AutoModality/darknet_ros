@@ -121,6 +121,8 @@ find_package(cv_bridge REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(darknet_ros_msgs REQUIRED)
 find_package(ament_index_cpp REQUIRED)
+find_package(am_utils REQUIRED)
+find_package(brain_box_msgs REQUIRED)
 
 set(dependencies
     rclcpp
@@ -132,6 +134,8 @@ set(dependencies
     sensor_msgs
     darknet_ros_msgs
     ament_index_cpp
+    brain_box_msgs
+    am_utils
 )
 
 # Enable OPENCV in darknet
