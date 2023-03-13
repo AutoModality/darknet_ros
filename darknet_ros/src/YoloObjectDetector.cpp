@@ -221,7 +221,7 @@ void YoloObjectDetector::init()
 
 void YoloObjectDetector::cameraCallback(const sensor_msgs::msg::Image::ConstSharedPtr & msg)
 {
-  ROS_INFO( "[YoloObjectDetector] USB image received.");
+  ROS_DEBUG( "[YoloObjectDetector] USB image received.");
 
   cv_bridge::CvImagePtr cam_image;
 
@@ -318,7 +318,7 @@ bool YoloObjectDetector::publishDetectionImage(const cv::Mat& detectionImage)
   cvImage.encoding = "bgr8";
   cvImage.image = detectionImage;
   detectionImagePublisher_->publish(*cvImage.toImageMsg());
-  ROS_INFO("Detection image has been published.");
+  ROS_DEBUG("Detection image has been published.");
   return true;
 }
 
@@ -394,7 +394,7 @@ void *YoloObjectDetector::detectInThread()
   image display = buff_[(buffIndex_+2) % 3];
   // draw_detections(display, dets, nboxes, demoThresh_, demoNames_, demoAlphabet_, demoClasses_);
   
-  draw_detections_v3(display, dets, nboxes, demoThresh_, demoNames_, demoAlphabet_, demoClasses_, 1);
+  draw_detections_v3(display, dets, nboxes, demoThresh_, demoNames_, demoAlphabet_, demoClasses_, 0);
   // extract the bounding boxes and send them to ROS
   int i, j;
   int count = 0;
@@ -669,7 +669,7 @@ void *YoloObjectDetector::publishInThread()
   // cv::Mat cvImage = cv::cvarrToMat(ipl_);
   cv::Mat cvImage = disp_;
   if (!publishDetectionImage(cv::Mat(cvImage))) {
-    ROS_INFO( "Detection image has not been broadcasted.");
+    ROS_DEBUG( "Detection image has not been broadcasted.");
   }
 
   // Publish bounding boxes and detection result.
