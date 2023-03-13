@@ -18,7 +18,6 @@
   <depend>image_transport</depend>
   <depend>cv_bridge</depend>
   <depend>sensor_msgs</depend>
-  <depend>darknet_ros_msgs</depend>
   <depend>ament_index_cpp</depend>
   <depend>brain_box_msgs</depend>
   <depend>am_utils</depend>

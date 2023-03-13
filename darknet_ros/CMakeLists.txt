@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 17)
 # USER SETTINGS =================================================================
 
 set(CUDA_ENABLE ON)
-set(CUDNN_ENABLE ON) #  set(CUDNN_ENABLE ON)
+set(CUDNN_ENABLE OFF) #  set(CUDNN_ENABLE ON)
 set(FP16_ENABLE ON)
 
 set(DOWNLOAD_YOLOV2_TINY ON)
@@ -30,7 +30,7 @@ set(DOWNLOAD_YOLOV7_TINY OFF)
 #  NAMES "README.md"
 #  HINTS "${CMAKE_CURRENT_SOURCE_DIR}/../darknet/")
 
-set(DARKNET_PATH "../darknet")
+set(DARKNET_PATH "../Darknet")
 message(STATUS "Darknet path dir = ${DARKNET_PATH}")
 add_definitions(-DDARKNET_FILE_PATH="${DARKNET_PATH}")
 
@@ -119,10 +119,10 @@ find_package(std_msgs REQUIRED)
 find_package(image_transport REQUIRED)
 find_package(cv_bridge REQUIRED)
 find_package(sensor_msgs REQUIRED)
-find_package(darknet_ros_msgs REQUIRED)
 find_package(ament_index_cpp REQUIRED)
 find_package(am_utils REQUIRED)
 find_package(brain_box_msgs REQUIRED)
+
 
 set(dependencies
     rclcpp
@@ -132,7 +132,6 @@ set(dependencies
     image_transport
     cv_bridge
     sensor_msgs
-    darknet_ros_msgs
     ament_index_cpp
     brain_box_msgs
     am_utils

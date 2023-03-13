@@ -537,9 +537,9 @@ void YoloObjectDetector::setupNetwork(char *cfgfile, char *weightfile, char *dat
   demoPrefix_ = prefix;
   demoDelay_ = delay;
   demoFrame_ = avg_frames;
-  image **alphabet = load_alphabet_with_file_cp(datafile);
+  //image **alphabet = load_alphabet_with_file_cp(datafile);
   demoNames_ = names;
-  demoAlphabet_ = alphabet;
+  //demoAlphabet_ = alphabet;
   demoClasses_ = classes;
   demoThresh_ = thresh;
   demoHier_ = hier;
