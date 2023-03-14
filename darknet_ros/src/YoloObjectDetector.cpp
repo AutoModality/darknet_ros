@@ -423,7 +423,7 @@ void *YoloObjectDetector::detectInThread()
 
         // define bounding box
         // BoundingBox must be 1% size of frame (3.2x2.4 pixels)
-        if (BoundingBox_width > 0.01 && BoundingBox_height > 0.01) {
+        if (BoundingBox_width > 0.004 && BoundingBox_height > 0.004) {
           roiBoxes_[count].x = x_center;
           roiBoxes_[count].y = y_center;
           roiBoxes_[count].w = BoundingBox_width;
