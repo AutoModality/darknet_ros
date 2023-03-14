@@ -9,15 +9,15 @@ darknet_ros:
         topic: /sensor/left_sc/image_raw
     publishers:
       object_detector:
-        topic: /sensor/left_sc/found_object
+        topic: /darknet/left_sc/found_object
         queue_size: 1
         latch: false
       bounding_boxes:
-        topic: /sensor/left_sc/detection
+        topic: /darknet/left_sc/detection
         queue_size: 1
         latch: false
       detection_image:
-        topic: /sensor/left_sc/detection_image
+        topic: /darknet/left_sc/detection_image
         queue_size: 1
         latch: true
     image_view:
